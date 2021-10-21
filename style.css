@@ -1,0 +1,185 @@
+:root {
+	--max-size: 32px;
+	--shadow-size: 3px 3px;
+	--n-shadow-size: -3px -3px;
+	--border-size: 2px;
+	--emoji-size: 48px;
+	--animation-speed: 0.1s;
+	--col-text: #808080;
+	--col-text-light: #d3d3d3;
+	--col-primary: cadetblue;
+	--col-primary-light: hsl(182, 35%, 60%);
+	--col-fail: hsl(0, 90%, 70%);
+	--shadow-1: 0px 1px 1px rgba(0, 0, 0, 0.3), 0px 3px 5px rgba(0, 0, 0, 0.15);
+	--shadow-2: 0px 3px 3px rgba(0, 0, 0, 0.15), 0px 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+* {
+	user-select: none;
+}
+
+html,
+body {
+	margin: 0;
+	font-family: sans-serif;
+	font-size: 1em;
+	text-align: center;
+}
+
+body {
+	background-color: white;
+	color: var(--col-text);
+}
+
+p {
+	font-size: 1.3em;
+}
+
+game {
+	display: block;
+	padding: 2em 0;
+}
+
+grid {
+	display: block;
+	padding: 0;
+	margin: 1em auto;
+}
+
+row {
+	display: flex;
+	margin: 0 auto;
+	flex-wrap: nowrap;
+	justify-content: center;
+}
+
+cell {
+	flex-shrink: 0;
+	flex-grow: 0;
+	display: inline-block;
+	overflow: hidden;
+	width: var(--max-size);
+	height: var(--max-size);
+	border: var(--border-size) solid black;
+	box-shadow: inset var(--shadow-size) 0px #ddd,
+		inset var(--n-shadow-size) 0px #777;
+	margin: 0;
+	font-size: calc(0.5 * var(--size));
+	line-height: 150%;
+	transition: opacity 0.1s, background-color 0.1s, box-shadow 0.1s,
+		border-color 0.1s;
+}
+
+cell[flag='true'] {
+	box-shadow: inset var(--shadow-size) 0px transparent,
+		inset var(--n-shadow-size) 0px transparent;
+}
+
+cell[clicked='false'] {
+	background: #aaa;
+	cursor: pointer;
+}
+
+.gameover cell {
+	cursor: default;
+}
+
+cell[clicked='false'][flag='false']:hover {
+	opacity: 0.8;
+}
+
+cell[clicked='false'][flag='false']:active {
+	opacity: 0.6;
+}
+
+.gameover cell[clicked='false']:hover {
+	opacity: 1;
+}
+
+cell[clicked='true'][flag='true'][bomb='true'] {
+	background: #aaa;
+	box-shadow: inset var(--shadow-size) 0px transparent,
+		inset var(--n-shadow-size) 0px transparent;
+	animation-delay: 0s;
+	animation-duration: 0.1s;
+	animation-name: openflag;
+	animation-fill-mode: forwards;
+	animation-iteration-count: 1;
+}
+
+@keyframes openflag {
+	to {
+		border-color: transparent;
+		box-shadow: inset var(--shadow-size) 0px transparent,
+			inset var(--n-shadow-size) 0px transparent;
+		background: #ccc;
+	}
+}
+
+cell[clicked='true'][flag='false'],
+cell[clicked='true'][flag='true'][bomb='false'] {
+	color: rgba(0, 0, 0, 0);
+	background: #aaa;
+	box-shadow: inset var(--shadow-size) 0px #ddd,
+		inset var(--n-shadow-size) 0px #777;
+	animation-delay: 0s;
+	animation-duration: 0.1s;
+	animation-name: open;
+	animation-fill-mode: forwards;
+	animation-iteration-count: 1;
+}
+
+@keyframes open {
+	to {
+		color: rgba(0, 0, 0, 1);
+		border-color: transparent;
+		box-shadow: inset var(--shadow-size) 0px transparent,
+			inset var(--n-shadow-size) 0px transparent;
+		background: #ccc;
+	}
+}
+
+.win #bombs_label {
+	color: green;
+}
+
+.lost #bombs_label {
+	color: red;
+}
+
+#size_label,
+#chance_label {
+	font-size: 1em;
+	margin-bottom: 0.3em;
+}
+
+btn {
+	font-size: 1.3em;
+	cursor: pointer;
+	display: inline-block;
+	margin: 1em auto;
+	padding: 0.3em 0.9em;
+	color: white;
+	background-color: var(--col-primary);
+	box-shadow: var(--shadow-1);
+	transition: box-shadow var(--animation-speed),
+		background-color var(--animation-speed);
+}
+
+btn:hover {
+	background-color: var(--col-primary-light);
+	box-shadow: var(--shadow-2);
+}
+
+input {
+	cursor: pointer;
+}
+
+#emoji_label {
+	display: block;
+	margin: 0 auto 0.5em auto;
+	width: var(--emoji-size);
+	height: var(--emoji-size);
+	line-height: var(--emoji-size);
+	font-size: var(--emoji-size);
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>minesweeper</title>
+    <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='slider.css'>
+</head>
+
+<body>
+    <game>
+        <p id='emoji_label'></p>
+        <grid></grid>
+        <p id='bombs_label'></p>
+        <p id='timer_label'>00:00:00</p>
+        <btn id='reset_btn'>new game</btn>
+        <p id='size_label'>size: 10x10</p>
+        <input type='range' id='width_slider' value=10 step=1 min=5 max=30>
+        <br>
+        <input type='range' id='height_slider' value=10 step=1 min=5 max=30>
+        <p id='chance_label'>bomb chance: 20%</p>
+        <input type='range' id='chance_slider' value=20 step=1 min=0 max=100>
+    </game>
+    <script src='minesweeper.js'></script>
+</body>
+
+</html>
